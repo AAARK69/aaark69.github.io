@@ -4,22 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rohan | About Me</title>
-  <meta name="description" content="Rohan — finance major & builder. Projects, skills, and ways to reach me." />
+  <meta name="description" content="Rohan — finance major & developer. Projects, skills, and ways to reach me." />
   <meta name="theme-color" content="#0ea5e9" />
   <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🚀</text></svg>' />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#0b0f19; --bg-soft:#0f1526; --surface:rgba(255,255,255,.06); --border:rgba(255,255,255,.14);
       --text:#e6e9ef; --muted:#9aa4b2; --brand:#0ea5e9; --brand-2:#22d3ee; --accent:#a78bfa;
       --success:#34d399; --warn:#f59e0b; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius-xl:22px; --radius-lg:16px; --radius-md:12px; --radius-sm:10px; --glass:backdrop-filter:saturate(140%) blur(14px);
+      --radius-xl:22px; --radius-lg:16px; --radius-md:12px; --radius-sm:10px;
     }
     [data-theme="light"]{--bg:#f7f8fb; --bg-soft:#eef1f6; --surface:rgba(0,0,0,.04); --border:rgba(0,0,0,.10); --text:#0b1220; --muted:#475569; --shadow:0 10px 30px rgba(2,6,23,.08)}
-    *{box-sizing:border-box}
-    html,body{height:100%} html{scroll-behavior:smooth}
+    *{box-sizing:border-box} html,body{height:100%} html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--text);background:var(--bg);line-height:1.65;letter-spacing:.06px}
     body::before{content:"";position:fixed;inset:0;z-index:-2;background:
       radial-gradient(1200px 800px at 10% -10%, rgba(14,165,233,.22), transparent 60%),
@@ -51,7 +49,6 @@
     .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
     .hero-card{border:1px solid var(--border);border-radius:var(--radius-xl);padding:18px;background:color-mix(in oklab, var(--bg) 84%, transparent);box-shadow:var(--shadow)}
     .avatar{--sz:140px;width:var(--sz);height:var(--sz);border-radius:28px;display:grid;place-items:center;font:800 48px/1 "JetBrains Mono", monospace;color:#061017;background:conic-gradient(from 210deg,var(--brand),var(--accent),var(--brand-2));box-shadow:inset 0 0 0 2px rgba(255,255,255,.5),var(--shadow)}
-    .avatar small{font-size:12px;letter-spacing:1px;opacity:.7}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .card{border:1px solid var(--border);border-radius:var(--radius-lg);background:color-mix(in oklab, var(--bg) 86%, transparent);padding:18px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
     .card h3{margin:.2rem 0 .4rem;font-size:1.05rem}
@@ -72,7 +69,7 @@
     footer{margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted)}
     .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
     .reveal.visible{opacity:1;transform:none}
-    .muted{color:var(--muted)} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace} .spacer{height:8px}
+    .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
     @media (max-width:920px){.hero{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.project{grid-column:span 12}.skill{grid-column:span 6}}
     @media (max-width:640px){.navlinks{display:none}.hamburger{display:grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid var(--border);background:var(--surface)}.mobile-menu{position:fixed;inset:80px 16px auto;z-index:60;background:color-mix(in oklab, var(--bg) 92%, transparent);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);display:none}.mobile-menu.open{display:block}.mobile-menu a{display:block;padding:14px 16px;border-bottom:1px solid var(--border)}.mobile-menu a:last-child{border-bottom:0}.skill{grid-column:span 12}}
   </style>
@@ -116,18 +113,19 @@
       <!-- HERO -->
       <section id="about" class="hero reveal">
         <div>
-          <p class="mono muted">Hi, I'm</p>
-          <h2 class="headline gradient">Rohan — finance major & builder</h2>
+          <p class="mono" style="color:#9aa4b2">Hi, I'm</p>
+          <h2 class="headline gradient">Rohan — finance major & developer</h2>
           <p class="subtitle">
-            I started coding in <strong>2021</strong> and I’m into projects where
-            <strong>code × markets</strong> meet. Right now I’m leveling up in
-            <strong>JavaScript</strong> & <strong>Java</strong>, and posting bits on TikTok/IG.
+            I’m into the intersection of finance and technology—building small tools that analyze markets,
+            track budgets, and visualize performance. I started coding in <strong>2021</strong> and now work
+            with <strong>JavaScript</strong>, <strong>Java</strong>, and <strong>Python</strong> to ship practical
+            projects.
           </p>
           <div class="cta">
             <a class="btn primary" href="#projects">See my projects</a>
             <a class="btn ghost" href="#contact">Contact me</a>
           </div>
-          <div class="spacer"></div>
+          <div style="height:8px"></div>
           <div class="chips" aria-label="quick facts">
             <span class="chip">Finance major</span>
             <span class="chip">Started coding: 2021</span>
@@ -139,15 +137,15 @@
             <div class="avatar" aria-hidden="true">RK</div>
             <div>
               <h3 style="margin:.2rem 0 2px">Rohan</h3>
-              <p class="muted" style="margin:0">Building cool stuff on the web 🌐</p>
+              <p style="margin:0;color:#9aa4b2">Finance × Tech • Open to collabs</p>
               <div class="chips" style="margin-top:10px">
                 <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span>
                 <span class="chip">Java</span><span class="chip">Python</span>
               </div>
             </div>
           </div>
-          <div class="spacer"></div>
-          <p class="muted" style="margin:0">Tip: swap in your real links/email below anytime.</p>
+          <div style="height:8px"></div>
+          <p style="margin:0;color:#9aa4b2">Exploring how code can solve real problems in finance and investing.</p>
         </div>
       </section>
 
@@ -155,32 +153,35 @@
       <section id="projects" class="reveal">
         <h2 class="mono" style="font-size:1.2rem; letter-spacing:.6px; margin:22px 0 10px">Projects</h2>
         <div class="grid">
+          <!-- Portfolio Tracker -->
           <article class="card project">
-            <div class="chips"><span class="chip">Web • JS</span><span class="chip">Canvas</span></div>
-            <h3>Orbit Playground</h3>
-            <p>A tiny physics demo with gravity, trails, and an asteroid belt. Built with HTML5 Canvas and requestAnimationFrame—no libs.</p>
+            <div class="chips"><span class="chip">Finance</span><span class="chip">Web • JS</span></div>
+            <h3>Portfolio Tracker</h3>
+            <p>Tracks ROI, CAGR, drawdowns, and allocation drift. CSV import + simple charts; built with vanilla JS.</p>
             <div class="actions">
               <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
               <a class="btn ghost" href="#" target="_blank" rel="noopener">Source</a>
             </div>
           </article>
 
+          <!-- Budget Automation -->
           <article class="card project">
-            <div class="chips"><span class="chip">Finance</span><span class="chip">Data</span></div>
-            <h3>Market Notebook</h3>
-            <p>Notes + lightweight dashboards tracking tickers, returns, and risk with simple JS charts.</p>
+            <div class="chips"><span class="chip">Finance</span><span class="chip">Python</span></div>
+            <h3>Budget Automator</h3>
+            <p>Parses bank CSVs, auto-categorizes spend, and outputs monthly reports with savings rate & trends.</p>
             <div class="actions">
-              <a class="btn" href="#" target="_blank" rel="noopener">Preview</a>
+              <a class="btn" href="#" target="_blank" rel="noopener">Docs</a>
               <a class="btn ghost" href="#" target="_blank" rel="noopener">Source</a>
             </div>
           </article>
 
+          <!-- Canvas playground from before -->
           <article class="card project">
-            <div class="chips"><span class="chip">Java</span><span class="chip">AP CSA</span></div>
-            <h3>Family Tree OOP</h3>
-            <p>Three-level inheritance project (GrandParent → Parent → Kid) practicing constructors, overrides, and encapsulation.</p>
+            <div class="chips"><span class="chip">Web • JS</span><span class="chip">Canvas</span></div>
+            <h3>Orbit Playground</h3>
+            <p>Little gravity sim with trails and an asteroid belt. HTML5 Canvas + requestAnimationFrame—no libs.</p>
             <div class="actions">
-              <a class="btn" href="#" target="_blank" rel="noopener">Readme</a>
+              <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
               <a class="btn ghost" href="#" target="_blank" rel="noopener">Source</a>
             </div>
           </article>
@@ -198,22 +199,30 @@
         </div>
       </section>
 
-      <!-- TIMELINE -->
+      <!-- TIMELINE (finance-focused) -->
       <section id="timeline" class="reveal">
         <h2 class="mono" style="font-size:1.2rem; letter-spacing:.6px; margin:22px 0 10px">Timeline</h2>
         <div class="card timeline">
           <div class="tl">
             <div class="tli">
-              <h4>2025 — Code × Markets</h4>
-              <p class="meta">Finance major; building small web apps & dashboards</p>
+              <h4>2025 — Finance projects & dashboards</h4>
+              <p class="meta">Portfolio tracker (ROI, drawdowns), budgeting automation, paper-trading backtests with simple JS charts.</p>
             </div>
             <div class="tli">
-              <h4>2024 — AP Computer Science A</h4>
-              <p class="meta">Java OOP foundations, algorithms, and problem-solving</p>
+              <h4>2024 — CS + Econ foundation</h4>
+              <p class="meta">AP CSA (Java OOP) + micro/macro coursework; started combining code with finance use-cases.</p>
+            </div>
+            <div class="tli">
+              <h4>2023 — First data tools</h4>
+              <p class="meta">Wrote small scripts to clean CSVs, chart trends, and track spending/investing habits.</p>
             </div>
             <div class="tli">
               <h4>2021 — Started coding</h4>
-              <p class="meta">HTML/CSS, Python, then Java & JavaScript</p>
+              <p class="meta">Began with HTML/CSS & Python, later added Java and JavaScript.</p>
+            </div>
+            <div class="tli">
+              <h4>Next up</h4>
+              <p class="meta">Learn more SQL & Python (Pandas), ship a live markets dashboard, and automate more finance workflows.</p>
             </div>
           </div>
         </div>
@@ -225,7 +234,7 @@
         <div class="contact">
           <div class="card">
             <h3>Say hello</h3>
-            <p class="muted">Prefer email? Click below—your mail app will open.</p>
+            <p style="color:#9aa4b2">Prefer email? Click below—your mail app will open.</p>
             <div class="cta">
               <a class="btn primary" href="mailto:rohan@rohankosur.com">rohan@rohankosur.com</a>
               <button class="btn ghost" id="copyEmail" data-email="rohan@rohankosur.com" type="button">Copy email</button>
@@ -238,17 +247,14 @@
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.34-1.77-1.34-1.77-1.1-.76.08-.74.08-.74 1.22.08 1.87 1.25 1.87 1.25 1.08 1.86 2.84 1.32 3.53 1.01.11-.8.42-1.33.76-1.63-2.66-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.48 5.94.43.37.81 1.08.81 2.18v3.24c0 .32.21.69.82.58A12 12 0 0 0 12 .5Z"/></svg>
                 <span class="mono">GitHub</span>
               </a>
-
               <a href="https://instagram.com/rohankosur" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 1.17.07 1.97.24 2.67.52.73.28 1.34.66 1.93 1.25.59.59.97 1.2 1.25 1.93.28.7.45 1.5.52 2.67.07 1.2.07 1.6.07 4.8s0 3.6-.07 4.8c-.07 1.17-.24 1.97-.52 2.67-.28.73-.66 1.34-1.25 1.93-.59.59-1.2.97-1.93 1.25-.7.28-1.5.45-2.67.52-1.2.07-1.6.07-4.8.07s-3.6 0-4.8-.07c-.95-.05-1.47-.2-1.82-.35-.46-.18-.8-.4-1.15-.75-.35-.35-.57-.69-.75-1.15-.15-.35-.3-.87-.35-1.82-.07-1.24-.07-1.61-.07-4.76s0-3.52.07-4.76c-.05-.95-.2-1.47-.35-1.82-.18-.46-.4-.8-.75-1.15-.35-.35-.69-.57-1.15-.75-.35-.15-.87-.3-1.82-.35C15.52 4 15.15 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.35-1.95a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 1.17.07 1.97.24 2.67.52.73.28 1.34.66 1.93 1.25.59.59.97 1.2 1.25 1.93.28.7.45 1.5.52 2.67.07 1.2.07 1.6.07 4.8s0 3.6-.07 4.8c-.07 1.17-.24 1.97-.52 2.67-.28.73-.66 1.34-1.25 1.93-.59.59-1.2.97-1.93 1.25-.7.28-1.5.45-2.67.52-1.2.07-1.6.07-4.8.07s-3.6 0-4.8-.07c-1.17-.07-1.47-.2-1.82-.35-.46-.18-.8-.4-1.15-.75-.35-.35-.57-.69-.75-1.15-.15-.35-.3-.87-.35-1.82-.07-1.24-.07-1.61-.07-4.76s0-3.52-.07-4.76c-.05-.95-.2-1.47-.35-1.82-.18-.46-.4-.8-.75-1.15-.35-.35-.69-.57-1.15-.75-.35-.15-.87-.3-1.82-.35C15.52 4 15.15 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.35-1.95a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg>
                 <span class="mono">@rohankosur</span>
               </a>
-
               <a href="https://www.tiktok.com/@rohankosur" target="_blank" rel="noopener" aria-label="TikTok">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 2a6 6 0 0 0 .1 1.2c.5 2.7 2.4 4 4.9 4.2v3a8.5 8.5 0 0 1-4.7-1.4v6.7a6.7 6.7 0 1 1-6.7-6.7c.5 0 1 .1 1.5.2V12a3.7 3.7 0 1 0 2.2 3.4V2h2.7Z"/></svg>
                 <span class="mono">@rohankosur</span>
               </a>
-
               <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.44c0-1.3-.02-2.97-1.8-2.97s-2.08 1.4-2.08 2.88v5.53H9.44V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.48v6.26ZM5.34 7.43a2.06 2.06 0 1 1 0-4.11 2.06 2.06 0 0 1 0 4.11ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
                 <span class="mono">LinkedIn</span>
@@ -280,4 +286,5 @@
   </script>
 </body>
 </html>
+
 
