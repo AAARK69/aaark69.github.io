@@ -3,397 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multimodal Aerospace Project</title>
+    <title>Aerospace Alley | Interactive Dashboard</title>
     <style>
         :root {
-            --space-bg: #070b12;
-            --panel-bg: rgba(16, 23, 41, 0.85);
-            --border-glow: #00f2fe;
-            --accent-blue: #4facfe;
-            --text-main: #f0f4f8;
-            --text-muted: #94a3b8;
-            --correct: #10b981;
-            --incorrect: #ef4444;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --zoom-blue: #2D8CFF;
+            --dark-navy: #0F172A;
+            --text-gray: #94A3B8;
+            --white: #F8FAFC;
         }
 
         body {
-            background-color: var(--space-bg);
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-navy);
+            color: var(--white);
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
-            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-bottom: 2px solid var(--border-glow);
-            background: linear-gradient(180deg, rgba(7,11,18,0) 0%, var(--panel-bg) 100%);
-            border-radius: 8px;
+            border-bottom: 2px solid var(--zoom-blue);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 0 0 10px var(--border-glow);
-            text-transform: uppercase;
-        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { color: var(--zoom-blue); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 5px;
-        }
-
-        /* Trifold Grid Layout */
-        .trifold-container {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
-            gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .panel {
-            background: var(--panel-bg);
-            border: 1px solid rgba(0, 242, 254, 0.2);
+        /* The Satirical Budget Tool */
+        .interactive-section {
+            background: rgba(45, 140, 255, 0.1);
+            border: 1px solid var(--zoom-blue);
+            padding: 30px;
             border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        .panel:hover {
-            border-color: var(--border-glow);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-        }
-
-        h2 {
-            color: var(--border-glow);
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-            padding-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        h3 {
-            color: var(--accent-blue);
-            margin: 15px 0 5px 0;
-        }
-
-        p, ul {
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        ul {
-            list-style-position: inside;
-            list-style-type: square;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        /* Interactive Timeline Element */
-        .timeline-tabs {
+        .pool-visual {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 20px;
+            height: 200px;
+            margin-top: 20px;
         }
 
-        .tab-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--text-muted);
-            color: var(--text-main);
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            flex: 1;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
+        .bar { width: 60px; transition: height 0.5s ease; border-radius: 5px 5px 0 0; }
+        .defense-bar { height: 180px; background-color: var(--zoom-blue); }
+        .nasa-bar { height: 2px; background-color: #EF4444; }
 
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--accent-blue);
-            border-color: var(--border-glow);
-            color: #000;
-        }
-
-        .timeline-content {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 6px;
-            min-height: 100px;
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        /* Interactive Quiz Layout */
+        /* Quiz Styling */
         .quiz-container {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 8px;
+            background: #1E293B;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
-        .question {
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .options-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--text-main);
+        .question { font-size: 1.2rem; margin-bottom: 15px; font-weight: bold; }
+        .option {
+            display: block;
+            background: #334155;
             padding: 12px;
+            margin-bottom: 10px;
             border-radius: 6px;
             cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            font-size: 0.9rem;
+            transition: 0.3s;
         }
+        .option:hover { background: var(--zoom-blue); }
 
-        .option-btn:hover {
-            background: rgba(79, 172, 254, 0.2);
-            border-color: var(--accent-blue);
-        }
-
-        .option-btn.correct {
-            background-color: var(--correct) !important;
+        button {
+            background: var(--zoom-blue);
             color: white;
-            border-color: #047857;
-        }
-
-        .option-btn.incorrect {
-            background-color: var(--incorrect) !important;
-            color: white;
-            border-color: #b91c1c;
-        }
-
-        .quiz-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .nav-btn {
-            background: var(--border-glow);
-            color: #070b12;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
             cursor: pointer;
-            font-weight: bold;
+            margin-top: 20px;
         }
 
-        .nav-btn:disabled {
-            background: var(--text-muted);
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
+        #quiz-result { margin-top: 20px; font-weight: bold; color: #10B981; }
 
-        #score-display {
-            font-weight: bold;
-            color: var(--accent-blue);
-        }
-
-        /* Responsive design for tablets/phones */
-        @media (max-width: 1024px) {
-            .trifold-container {
-                grid-template-columns: 1fr;
-            }
-        }
+        footer { text-align: center; margin-top: 50px; color: var(--text-gray); font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
+<div class="container">
     <header>
-        <h1>Project Orion: Multimodal Exploration</h1>
-        <p>A Digital Adaptation of the Aerospace Display System</p>
+        <p class="subtitle">Doug O'Nomics Presents</p>
+        <h1>AEROSPACE ALLEY INTERACTIVE</h1>
+        <p>A Data-Driven Deep Dive into South Windsor's Industrial Pipeline</p>
     </header>
 
-    <main class="trifold-container">
-        
-        <!-- LEFT PANEL: INTRODUCTION & THEORY -->
-        <section class="panel left-panel">
-            <h2>01. Mission Overview</h2>
-            <h3>Introduction</h3>
-            <p>This project analyzes the aerodynamics, telemetry data, and optimization profiles required for next-generation atmospheric and sub-orbital flight trajectories.</p>
-            
-            <h3>Core Objectives</h3>
-            <ul>
-                <li>Determine optimal launch parameters using fluid dynamic modeling.</li>
-                <li>Analyze the structural integrity of localized payload designs.</li>
-                <li>Map real-world data points to predictive mathematical functions.</li>
-            </ul>
-
-            <h3>Hypothesis</h3>
-            <p>By optimizing surface geometry coefficients, structural drag can be systematically mitigated to increase fuel mass efficiency parameters by a calculated margin.</p>
-        </section>
-
-        <!-- CENTER PANEL: DATA & CORE INTERACTIVE COMPONENT -->
-        <section class="panel center-panel">
-            <h2>02. Flight Data & Telemetry</h2>
-            <p>Select a flight stage below to visualize payload conditions, telemetry checkpoints, and multi-modal sensory updates during operational deployment.</p>
-            
-            <!-- Interactive Element: Mission Stage Log -->
-            <div class="timeline-tabs">
-                <button class="tab-btn active" onclick="switchStage('t1', this)">Stage I: Ignition</button>
-                <button class="tab-btn" onclick="switchStage('t2', this)">Stage II: Max Q</button>
-                <button class="tab-btn" onclick="switchStage('t3', this)">Stage III: Orbit</button>
+    <div class="interactive-section">
+        <h3>Visualizing the "Ice Cube vs. Pool" Claim</h3>
+        <p>Doug says NASA is the ice cube, Defense is the pool. Here is the literal scale:</p>
+        <div class="pool-visual">
+            <div>
+                <div class="bar defense-bar"></div>
+                <small>Defense</small>
             </div>
-
-            <div id="timeline-box" class="timeline-content">
-                <strong>T+0:00: Launch Initiation</strong><br>
-                Primary propulsion thrusters achieved full nominal stabilization. Structural vibration readings remained within standard tolerances across all test telemetry points.
+            <div>
+                <div class="bar nasa-bar"></div>
+                <small>NASA</small>
             </div>
+        </div>
+        <p><small>*Relative scale based on ~0.4% NASA budget vs Total Federal Spend.</small></p>
+    </div>
 
-            <h3 style="margin-top: 25px;">Data Synthesization</h3>
-            <p>The charts and structural metrics translated from the physical board show a direct variance correlation between velocity scaling metrics and thermal profile generation over time.</p>
-        </section>
+    <div class="quiz-container">
+        <h3>Are You a Fiscal Realist?</h3>
+        <div id="quiz">
+            <div class="question">1. Where is the high-tech manufacturing center of CT located?</div>
+            <div class="option" onclick="check(1, 0)">Hartford (The Capitol)</div>
+            <div class="option" onclick="check(1, 1)">Sullivan Avenue, South Windsor</div>
+            <div class="option" onclick="check(1, 0)">The Moon (Eventually)</div>
 
-        <!-- RIGHT PANEL: QUIZ & SUMMARY -->
-        <section class="panel right-panel">
-            <h2>03. Evaluation Hub</h2>
-            <p>Verify your understanding of the flight mechanics and design parameters presented across this display.</p>
+            <div class="question" style="margin-top:20px;">2. What percentage of CT's GDP is tied to aerospace?</div>
+            <div class="option" onclick="check(2, 0)">1.5%</div>
+            <div class="option" onclick="check(2, 1)">7.41%</div>
+            <div class="option" onclick="check(2, 0)">100% (Ideally)</div>
+        </div>
+        <div id="quiz-result"></div>
+        <button onclick="resetQuiz()">Restart Quiz</button>
+    </div>
 
-            <!-- Interactive Element: Quiz System -->
-            <div class="quiz-container">
-                <div id="question-text" class="question">Loading question...</div>
-                <div id="options-container" class="options-grid"></div>
-                
-                <div class="quiz-nav">
-                    <span id="score-display">Score: 0/0</span>
-                    <button id="next-btn" class="nav-btn" onclick="nextQuestion()" disabled>Next</button>
-                </div>
-            </div>
+    <footer>
+        &copy; 2026 Aerospace Alley Project | Multimodal Satire Initiative
+    </footer>
+</div>
 
-            <h3 style="margin-top: 25px;">Conclusions</h3>
-            <p>The translation of aerospace data tracking mechanisms directly validates modern algorithmic predictions, forming a baseline architecture for subsequent iteration designs.</p>
-        </section>
-
-    </main>
-
-    <script>
-        // Data for Interactive Timeline
-        const stageData = {
-            t1: "<strong>T+0:00: Launch Initiation</strong><br>Primary propulsion thrusters achieved full nominal stabilization. Structural vibration readings remained within standard tolerances across all test telemetry points.",
-            t2: "<strong>T+1:15: Maximum Aerodynamic Pressure</strong><br>Aerodynamic drag forces peaked precisely at scheduled tracking limits. The automated hull stabilization system executed real-time attitude corrections.",
-            t3: "<strong>T+3:40: Orbital Insertion Secured</strong><br>Main engine cutoff achieved. System sensors confirmed safe payload deployment into intended stable vector coordinates."
-        };
-
-        function switchStage(stageKey, element) {
-            document.getElementById('timeline-box').innerHTML = stageData[stageKey];
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
+<script>
+    let score = 0;
+    function check(q, correct) {
+        if(correct) {
+            score++;
+            document.getElementById('quiz-result').innerText = "Correct! Doug O'Nomics would be proud.";
+        } else {
+            document.getElementById('quiz-result').innerText = "Incorrect. Senator Not Lamont is rubbing off on you.";
         }
+    }
 
-        // Data for Interactive Quiz
-        const quizData = [
-            {
-                question: "Which operational phase subjects the vehicle structure to its peak structural aerodynamic stress?",
-                options: ["Main Engine Cutoff", "Maximum Aerodynamic Pressure (Max Q)", "Orbital Insertion Phase", "Initial Ignition Sequence"],
-                correctIndex: 1
-            },
-            {
-                question: "What primary metric is minimized by optimizing the surface geometry coefficient?",
-                options: ["Payload Volume", "Total Structural Drag", "Propellant Burn Rate", "Telemetry Bandwidth Rate"],
-                correctIndex: 1
-            },
-            {
-                question: "What tool allows engineers to process real-time structural adjustments during flight?",
-                options: ["Automated Hull Stabilization System", "Static Tri-fold Schematics", "Payload Mass Balancers", "Post-Flight Data Logs"],
-                correctIndex: 0
-            }
-        ];
+    function resetQuiz() {
+        score = 0;
+        document.getElementById('quiz-result').innerText = "";
+        alert("Quiz Reset! Try to think like a data consultant this time.");
+    }
+</script>
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let answered = false;
-
-        function loadQuestion() {
-            answered = false;
-            document.getElementById('next-btn').disabled = true;
-            
-            const currentQuestion = quizData[currentQuestionIndex];
-            document.getElementById('question-text').innerText = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
-            
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-            
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.innerText = option;
-                button.onclick = () => selectOption(index, button);
-                optionsContainer.appendChild(button);
-            });
-
-            updateScoreDisplay();
-        }
-
-        function selectOption(selectedIndex, selectedButton) {
-            if (answered) return;
-            answered = true;
-            
-            const currentQuestion = quizData[currentQuestionIndex];
-            const buttons = document.querySelectorAll('.option-btn');
-            
-            if (selectedIndex === currentQuestion.correctIndex) {
-                selectedButton.classList.add('correct');
-                score++;
-            } else {
-                selectedButton.classList.add('incorrect');
-                buttons[currentQuestion.correctIndex].classList.add('correct');
-            }
-            
-            updateScoreDisplay();
-            document.getElementById('next-btn').disabled = false;
-        }
-
-        function updateScoreDisplay() {
-            const totalAnswered = answered ? currentQuestionIndex + 1 : currentQuestionIndex;
-            document.getElementById('score-display').innerText = `Score: ${score}/${quizData.length}`;
-        }
-
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
-                loadQuestion();
-            } else {
-                // Quiz Complete
-                document.getElementById('question-text').innerText = "Evaluation Complete!";
-                document.getElementById('options-container').innerHTML = `<p>You successfully processed the flight metrics parameters with a final efficiency rating of ${score} out of ${quizData.length} correct modules.</p>`;
-                document.getElementById('next-btn').style.display = 'none';
-            }
-        }
-
-        // Initialize quiz on page load
-        loadQuestion();
-    </script>
 </body>
 </html>
