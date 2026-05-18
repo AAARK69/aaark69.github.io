@@ -8,8 +8,10 @@
         :root {
             --zoom-blue: #2D8CFF;
             --dark-navy: #0F172A;
+            --panel-bg: #1E293B;
             --text-gray: #94A3B8;
             --white: #F8FAFC;
+            --nasa-red: #EF4444;
         }
 
         body {
@@ -37,35 +39,69 @@
         h1 { font-size: 2.5rem; margin-bottom: 10px; }
         .subtitle { color: var(--zoom-blue); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* The Satirical Budget Tool */
         .interactive-section {
-            background: rgba(45, 140, 255, 0.1);
+            background: rgba(45, 140, 255, 0.05);
             border: 1px solid var(--zoom-blue);
             padding: 30px;
             border-radius: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
         }
 
+        /* 1. The Budget Slider Visuals */
         .pool-visual {
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 20px;
-            height: 200px;
+            gap: 40px;
+            height: 220px;
             margin-top: 20px;
+            border-bottom: 2px solid var(--text-gray);
+            padding-bottom: 10px;
         }
 
-        .bar { width: 60px; transition: height 0.5s ease; border-radius: 5px 5px 0 0; }
-        .defense-bar { height: 180px; background-color: var(--zoom-blue); }
-        .nasa-bar { height: 2px; background-color: #EF4444; }
+        .bar-container { display: flex; flex-direction: column; align-items: center; width: 100px; }
+        .bar { width: 100%; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 5px 5px 0 0; }
+        .defense-bar { background-color: var(--zoom-blue); }
+        .nasa-bar { background-color: var(--nasa-red); }
+        
+        .slider-container { margin-top: 30px; }
+        input[type=range] { width: 80%; cursor: pointer; }
+        
+        /* 2. ROI Calculator & Form Inputs */
+        input[type=number] {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--zoom-blue);
+            background: var(--dark-navy);
+            color: white;
+            font-size: 1.1rem;
+            width: 200px;
+            text-align: center;
+        }
+
+        button {
+            background: var(--zoom-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+        button:hover { background: #1E6BCC; }
+
+        .roi-result { font-size: 1.5rem; font-weight: bold; color: #10B981; margin-top: 15px; }
 
         /* Quiz Styling */
         .quiz-container {
-            background: #1E293B;
+            background: var(--panel-bg);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
         }
 
         .question { font-size: 1.2rem; margin-bottom: 15px; font-weight: bold; }
@@ -79,19 +115,36 @@
             transition: 0.3s;
         }
         .option:hover { background: var(--zoom-blue); }
+        #quiz-result { margin-top: 20px; font-weight: bold; font-size: 1.2rem; }
 
-        button {
-            background: var(--zoom-blue);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
+        /* 3. Doug's Quote Box */
+        .quote-box {
+            background: #1E293B;
+            border-left: 5px solid var(--nasa-red);
+            padding: 20px;
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #quiz-result { margin-top: 20px; font-weight: bold; color: #10B981; }
+        /* 5. Zoom Muted Notification */
+        .zoom-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border-left: 4px solid #EF4444;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
 
         footer { text-align: center; margin-top: 50px; color: var(--text-gray); font-size: 0.9rem; }
     </style>
@@ -106,36 +159,57 @@
     </header>
 
     <div class="interactive-section">
-        <h3>Visualizing the "Ice Cube vs. Pool" Claim</h3>
-        <p>Doug says NASA is the ice cube, Defense is the pool. Here is the literal scale:</p>
+        <h3>1. The "What If" Scale Visualizer</h3>
+        <p>Shift 5% of the Defense Budget into NASA R&D and watch the local impact scale up.</p>
+        
         <div class="pool-visual">
-            <div>
-                <div class="bar defense-bar"></div>
-                <small>Defense</small>
+            <div class="bar-container">
+                <div class="bar defense-bar" id="def-bar" style="height: 180px;"></div>
+                <small>Defense (Pool)</small>
             </div>
-            <div>
-                <div class="bar nasa-bar"></div>
-                <small>NASA</small>
+            <div class="bar-container">
+                <div class="bar nasa-bar" id="nas-bar" style="height: 5px;"></div>
+                <small>NASA (Ice Cube)</small>
             </div>
         </div>
-        <p><small>*Relative scale based on ~0.4% NASA budget vs Total Federal Spend.</small></p>
+
+        <div class="slider-container">
+            <input type="range" id="budget-slider" min="0" max="50" value="0" oninput="updateVisualizer(this.value)">
+            <p><strong>South Windsor Economic Multiplier: <span id="multiplier-text" style="color:#10B981">1.0x</span></strong></p>
+        </div>
+    </div>
+
+    <div class="interactive-section">
+        <h3>2. Taxpayer ROI Calculator</h3>
+        <p>Enter your theoretical annual taxes to see your personal space funding.</p>
+        <input type="number" id="tax-input" placeholder="e.g. 5000">
+        <br>
+        <button onclick="calculateTaxes()">Calculate My Taxes</button>
+        <div id="tax-result" class="roi-result"></div>
+    </div>
+
+    <div class="interactive-section">
+        <h3>3. Doug's Real-Time Analysis</h3>
+        <div class="quote-box" id="doug-quote">
+            "Click the button below to receive fiscal realism."
+        </div>
+        <button onclick="generateQuote()" style="background: var(--nasa-red);">Consult Doug</button>
     </div>
 
     <div class="quiz-container">
-        <h3>Are You a Fiscal Realist?</h3>
-        <div id="quiz">
+        <h3>4. Are You a Fiscal Realist?</h3>
+        <div id="quiz-questions">
             <div class="question">1. Where is the high-tech manufacturing center of CT located?</div>
-            <div class="option" onclick="check(1, 0)">Hartford (The Capitol)</div>
-            <div class="option" onclick="check(1, 1)">Sullivan Avenue, South Windsor</div>
-            <div class="option" onclick="check(1, 0)">The Moon (Eventually)</div>
+            <div class="option" onclick="answer(1, 0)">Hartford (The Capitol)</div>
+            <div class="option" onclick="answer(1, 1)">Sullivan Avenue, South Windsor</div>
+            <div class="option" onclick="answer(1, 0)">The Moon (Eventually)</div>
 
             <div class="question" style="margin-top:20px;">2. What percentage of CT's GDP is tied to aerospace?</div>
-            <div class="option" onclick="check(2, 0)">1.5%</div>
-            <div class="option" onclick="check(2, 1)">7.41%</div>
-            <div class="option" onclick="check(2, 0)">100% (Ideally)</div>
+            <div class="option" onclick="answer(2, 0)">1.5%</div>
+            <div class="option" onclick="answer(2, 1)">7.41%</div>
+            <div class="option" onclick="answer(2, 0)">100% (Ideally)</div>
         </div>
         <div id="quiz-result"></div>
-        <button onclick="resetQuiz()">Restart Quiz</button>
     </div>
 
     <footer>
@@ -143,22 +217,75 @@
     </footer>
 </div>
 
+<div class="zoom-toast" id="senator-toast">
+    🎤 <em>Senator Not Lamont is attempting to speak, but his mic is muted.</em>
+</div>
+
 <script>
+    // 1. Budget Slider Logic
+    function updateVisualizer(val) {
+        // Base defense is 180px, base NASA is 5px.
+        const defHeight = 180 - (val * 1.5); 
+        const nasaHeight = 5 + (val * 1.5);
+        const multiplier = (1.0 + (val * 0.12)).toFixed(1);
+
+        document.getElementById('def-bar').style.height = defHeight + "px";
+        document.getElementById('nas-bar').style.height = nasaHeight + "px";
+        document.getElementById('multiplier-text').innerText = multiplier + "x";
+    }
+
+    // 2. ROI Calculator Logic
+    function calculateTaxes() {
+        const taxes = document.getElementById('tax-input').value;
+        if (!taxes || taxes <= 0) return;
+        
+        // Approx federal breakdown: Defense ~15%, NASA ~0.4%
+        const defenseSpend = (taxes * 0.15).toFixed(2);
+        const nasaSpend = (taxes * 0.004).toFixed(2);
+        
+        document.getElementById('tax-result').innerHTML = 
+            `Defense: $${defenseSpend} <br> NASA: $${nasaSpend} <br> <span style="font-size:0.9rem; color:var(--text-gray);">You bought a fraction of an F-35 and a single bolt on the Artemis rocket.</span>`;
+    }
+
+    // 3. Doug's Quotes Logic
+    const quotes = [
+        "Moving NASA funding to general Defense is like trying to fill a swimming pool with a scientifically advanced ice cube.",
+        "Cutting space R&D to fund the military is like building a faster car by firing the guy who invented the engine.",
+        "In South Windsor, space money is spent in our grocery stores, not the void.",
+        "That's a lovely political sentiment, Senator, but the math does not care.",
+        "One in four aircraft engines in the U.S. comes from Connecticut. The math is local."
+    ];
+    function generateQuote() {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('doug-quote').innerText = `"${randomQuote}" — Doug O'Nomics`;
+    }
+
+    // 4. Personalized Quiz Logic
     let score = 0;
-    function check(q, correct) {
-        if(correct) {
-            score++;
-            document.getElementById('quiz-result').innerText = "Correct! Doug O'Nomics would be proud.";
-        } else {
-            document.getElementById('quiz-result').innerText = "Incorrect. Senator Not Lamont is rubbing off on you.";
+    let answered = 0;
+    function answer(q, isCorrect) {
+        answered++;
+        if (isCorrect) score++;
+        
+        if (answered >= 2) {
+            let title = "";
+            let color = "";
+            if (score === 2) { title = "Certified Fiscal Realist (Doug approves)"; color = "#10B981"; }
+            else if (score === 1) { title = "Confused Taxpayer"; color = "#F59E0B"; }
+            else { title = "Senator Not Lamont's Intern"; color = "#EF4444"; }
+            
+            document.getElementById('quiz-result').innerHTML = `Score: ${score}/2 <br> <span style="color:${color};">Status: ${title}</span>`;
+            document.getElementById('quiz-questions').style.pointerEvents = 'none'; // Lock quiz
+            document.getElementById('quiz-questions').style.opacity = '0.5';
         }
     }
 
-    function resetQuiz() {
-        score = 0;
-        document.getElementById('quiz-result').innerText = "";
-        alert("Quiz Reset! Try to think like a data consultant this time.");
-    }
+    // 5. Senator Notification Logic (Fires randomly after a few seconds)
+    setTimeout(() => {
+        const toast = document.getElementById('senator-toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 6000);
+    }, 8000);
 </script>
 
 </body>
