@@ -1,294 +1,399 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rohan | About Me</title>
-  <meta name="description" content="Rohan — finance major & developer. Projects, skills, and ways to reach me." />
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🚀</text></svg>' />
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0b0f19; --bg-soft:#0f1526; --surface:rgba(255,255,255,.06); --border:rgba(255,255,255,.14);
-      --text:#e6e9ef; --muted:#9aa4b2; --brand:#0ea5e9; --brand-2:#22d3ee; --accent:#a78bfa;
-      --success:#34d399; --warn:#f59e0b; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius-xl:22px; --radius-lg:16px; --radius-md:12px; --radius-sm:10px;
-    }
-    [data-theme="light"]{--bg:#f7f8fb; --bg-soft:#eef1f6; --surface:rgba(0,0,0,.04); --border:rgba(0,0,0,.10); --text:#0b1220; --muted:#475569; --shadow:0 10px 30px rgba(2,6,23,.08)}
-    *{box-sizing:border-box} html,body{height:100%} html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--text);background:var(--bg);line-height:1.65;letter-spacing:.06px}
-    body::before{content:"";position:fixed;inset:0;z-index:-2;background:
-      radial-gradient(1200px 800px at 10% -10%, rgba(14,165,233,.22), transparent 60%),
-      radial-gradient(900px 700px at 110% 10%, rgba(167,139,250,.18), transparent 60%),
-      radial-gradient(700px 500px at 50% 120%, rgba(34,211,238,.15), transparent 60%),var(--bg)}
-    body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.45;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:3px 3px;mask-image:radial-gradient(ellipse at center, rgba(0,0,0,.6), transparent 65%);animation:twinkle 12s linear infinite}
-    @keyframes twinkle{0%{opacity:.55}50%{opacity:.35}100%{opacity:.55}}
-    .wrap{max-width:1100px;margin-inline:auto;padding:18px 20px 64px}
-    a{color:inherit;text-decoration:none}
-    .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.1rem;border-radius:999px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);transition:transform .15s ease,background .2s ease,border-color .2s ease}
-    .btn:hover{transform:translateY(-1px);border-color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02))}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#001018;font-weight:700;border-color:transparent}
-    .btn.ghost{background:transparent}
-    .skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:999;background:#111;color:#fff;padding:.5rem .75rem;border-radius:10px}
-    .nav{position:sticky;top:10px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:color-mix(in oklab, var(--bg) 86%, transparent);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
-    .brand{display:flex;align-items:center;gap:.75rem}
-    .logo{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--accent));font-weight:800;color:#071018;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
-    .brand h1{font-size:1rem;margin:0;letter-spacing:.4px}
-    .navlinks{display:flex;align-items:center;gap:10px}
-    .nav a{padding:.55rem .85rem;border-radius:999px;border:1px solid transparent}
-    .nav a:hover{border-color:var(--border);background:var(--surface)}
-    .theme-toggle{border:1px solid var(--border);border-radius:999px;background:var(--surface);width:42px;height:42px;display:grid;place-items:center}
-    .hamburger{display:none}
-    section{scroll-margin-top:90px;margin-top:42px}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;margin-top:18px}
-    .headline{font-size:clamp(2.1rem,4vw + .5rem,3.6rem);line-height:1.05;margin:.3rem 0 10px;font-weight:800}
-    .gradient{background:linear-gradient(135deg,#e2e8f0,#a5f3fc 25%,#a78bfa 60%,#e879f9 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .subtitle{max-width:58ch;color:var(--muted)}
-    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .hero-card{border:1px solid var(--border);border-radius:var(--radius-xl);padding:18px;background:color-mix(in oklab, var(--bg) 84%, transparent);box-shadow:var(--shadow)}
-    .avatar{--sz:140px;width:var(--sz);height:var(--sz);border-radius:28px;display:grid;place-items:center;font:800 48px/1 "JetBrains Mono", monospace;color:#061017;background:conic-gradient(from 210deg,var(--brand),var(--accent),var(--brand-2));box-shadow:inset 0 0 0 2px rgba(255,255,255,.5),var(--shadow)}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .card{border:1px solid var(--border);border-radius:var(--radius-lg);background:color-mix(in oklab, var(--bg) 86%, transparent);padding:18px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
-    .card h3{margin:.2rem 0 .4rem;font-size:1.05rem}
-    .card p{margin:0;color:var(--muted)}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .chip{font:600 12px/1 Inter,sans-serif;padding:.45rem .7rem;border-radius:999px;border:1px solid var(--border);background:var(--surface)}
-    .project{grid-column:span 6}.project .actions{margin-top:12px}
-    .skill{grid-column:span 3}.timeline{grid-column:span 12}
-    .tl{position:relative;margin:6px 0 0 3px;padding-left:22px}
-    .tl::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
-    .tli{position:relative;margin:0 0 18px 0}
-    .tli::before{content:"";position:absolute;left:-20px;top:.4rem;width:10px;height:10px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px color-mix(in oklab, var(--brand) 25%, transparent)}
-    .tli h4{margin:.1rem 0 0}.tli .meta{color:var(--muted);font-size:.9rem}
-    .contact{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .socials{display:flex;gap:10px;flex-wrap:wrap}
-    .socials a{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem .8rem;border-radius:999px;border:1px solid var(--border);background:var(--surface)}
-    .socials svg{width:18px;height:18px}
-    footer{margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted)}
-    .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
-    .reveal.visible{opacity:1;transform:none}
-    .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    @media (max-width:920px){.hero{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.project{grid-column:span 12}.skill{grid-column:span 6}}
-    @media (max-width:640px){.navlinks{display:none}.hamburger{display:grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid var(--border);background:var(--surface)}.mobile-menu{position:fixed;inset:80px 16px auto;z-index:60;background:color-mix(in oklab, var(--bg) 92%, transparent);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);display:none}.mobile-menu.open{display:block}.mobile-menu a{display:block;padding:14px 16px;border-bottom:1px solid var(--border)}.mobile-menu a:last-child{border-bottom:0}.skill{grid-column:span 12}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal Aerospace Project</title>
+    <style>
+        :root {
+            --space-bg: #070b12;
+            --panel-bg: rgba(16, 23, 41, 0.85);
+            --border-glow: #00f2fe;
+            --accent-blue: #4facfe;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            --correct: #10b981;
+            --incorrect: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--space-bg);
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid var(--border-glow);
+            background: linear-gradient(180deg, rgba(7,11,18,0) 0%, var(--panel-bg) 100%);
+            border-radius: 8px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--border-glow);
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        /* Trifold Grid Layout */
+        .trifold-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+
+        h2 {
+            color: var(--border-glow);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            color: var(--accent-blue);
+            margin: 15px 0 5px 0;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        ul {
+            list-style-position: inside;
+            list-style-type: square;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Interactive Timeline Element */
+        .timeline-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--text-muted);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            flex: 1;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--border-glow);
+            color: #000;
+        }
+
+        .timeline-content {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 6px;
+            min-height: 100px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        /* Interactive Quiz Layout */
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .question {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .option-btn:hover {
+            background: rgba(79, 172, 254, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct) !important;
+            color: white;
+            border-color: #047857;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--incorrect) !important;
+            color: white;
+            border-color: #b91c1c;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            background: var(--border-glow);
+            color: #070b12;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nav-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #score-display {
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        /* Responsive design for tablets/phones */
+        @media (max-width: 1024px) {
+            .trifold-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
 
-  <div class="wrap">
-    <nav class="nav" aria-label="Primary">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">RK</div>
-        <h1 class="mono">Rohan</h1>
-      </div>
-      <div class="navlinks" role="navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-      </button>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" title="Menu">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-    </nav>
+    <header>
+        <h1>Project Orion: Multimodal Exploration</h1>
+        <p>A Digital Adaptation of the Aerospace Display System</p>
+    </header>
 
-    <div id="mobileMenu" class="mobile-menu" role="menu">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#timeline">Timeline</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <main class="trifold-container">
+        
+        <!-- LEFT PANEL: INTRODUCTION & THEORY -->
+        <section class="panel left-panel">
+            <h2>01. Mission Overview</h2>
+            <h3>Introduction</h3>
+            <p>This project analyzes the aerodynamics, telemetry data, and optimization profiles required for next-generation atmospheric and sub-orbital flight trajectories.</p>
+            
+            <h3>Core Objectives</h3>
+            <ul>
+                <li>Determine optimal launch parameters using fluid dynamic modeling.</li>
+                <li>Analyze the structural integrity of localized payload designs.</li>
+                <li>Map real-world data points to predictive mathematical functions.</li>
+            </ul>
 
-    <main id="main">
-      <!-- HERO -->
-      <section id="about" class="hero reveal">
-        <div>
-          <p class="mono" style="color:#9aa4b2">Hi, I'm</p>
-          <h2 class="headline gradient">Rohan — finance major & developer</h2>
-          <p class="subtitle">
-            I’m into the intersection of finance and technology—building small tools that analyze markets,
-            track budgets, and visualize performance. I started coding in <strong>2021</strong> and now work
-            with <strong>JavaScript</strong>, <strong>Java</strong>, and <strong>Python</strong> to ship practical
-            projects.
-          </p>
-          <div class="cta">
-            <a class="btn primary" href="#projects">See my projects</a>
-            <a class="btn ghost" href="#contact">Contact me</a>
-          </div>
-          <div style="height:8px"></div>
-          <div class="chips" aria-label="quick facts">
-            <span class="chip">Finance major</span>
-            <span class="chip">Started coding: 2021</span>
-            <span class="chip">@rohankosur on TikTok & IG</span>
-          </div>
-        </div>
-        <div class="hero-card" aria-label="Profile">
-          <div style="display:flex; gap:16px; align-items:center;">
-            <div class="avatar" aria-hidden="true">RK</div>
-            <div>
-              <h3 style="margin:.2rem 0 2px">Rohan</h3>
-              <p style="margin:0;color:#9aa4b2">Finance × Tech • Open to collabs</p>
-              <div class="chips" style="margin-top:10px">
-                <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span>
-                <span class="chip">Java</span><span class="chip">Python</span>
-              </div>
+            <h3>Hypothesis</h3>
+            <p>By optimizing surface geometry coefficients, structural drag can be systematically mitigated to increase fuel mass efficiency parameters by a calculated margin.</p>
+        </section>
+
+        <!-- CENTER PANEL: DATA & CORE INTERACTIVE COMPONENT -->
+        <section class="panel center-panel">
+            <h2>02. Flight Data & Telemetry</h2>
+            <p>Select a flight stage below to visualize payload conditions, telemetry checkpoints, and multi-modal sensory updates during operational deployment.</p>
+            
+            <!-- Interactive Element: Mission Stage Log -->
+            <div class="timeline-tabs">
+                <button class="tab-btn active" onclick="switchStage('t1', this)">Stage I: Ignition</button>
+                <button class="tab-btn" onclick="switchStage('t2', this)">Stage II: Max Q</button>
+                <button class="tab-btn" onclick="switchStage('t3', this)">Stage III: Orbit</button>
             </div>
-          </div>
-          <div style="height:8px"></div>
-          <p style="margin:0;color:#9aa4b2">Exploring how code can solve real problems in finance and investing.</p>
-        </div>
-      </section>
 
-      <!-- PROJECTS -->
-      <section id="projects" class="reveal">
-        <h2 class="mono" style="font-size:1.2rem; letter-spacing:.6px; margin:22px 0 10px">Projects</h2>
-        <div class="grid">
-          <!-- Portfolio Tracker -->
-          <article class="card project">
-            <div class="chips"><span class="chip">Finance</span><span class="chip">Web • JS</span></div>
-            <h3>Portfolio Tracker</h3>
-            <p>Tracks ROI, CAGR, drawdowns, and allocation drift. CSV import + simple charts; built with vanilla JS.</p>
-            <div class="actions">
-              <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
-              <a class="btn ghost" href="#" target="_blank" rel="noopener">Source</a>
+            <div id="timeline-box" class="timeline-content">
+                <strong>T+0:00: Launch Initiation</strong><br>
+                Primary propulsion thrusters achieved full nominal stabilization. Structural vibration readings remained within standard tolerances across all test telemetry points.
             </div>
-          </article>
 
-<!-- Budget Automator -->
-<article class="card project">
-  <div class="chips"><span class="chip">Finance</span><span class="chip">Python</span></div>
-  <h3>Budget Automator</h3>
-  <p>Parses bank CSVs, auto-categorizes spend, and outputs monthly reports with savings rate & trends.</p>
-  <div class="actions">
-    <!-- If your repo is kebab-case -->
-    <a class="btn" href="https://github.com/AAARK69/budget-automator#readme" target="_blank" rel="noopener">Docs</a>
-    <a class="btn ghost" href="https://github.com/AAARK69/budget-automator" target="_blank" rel="noopener">Source</a>
+            <h3 style="margin-top: 25px;">Data Synthesization</h3>
+            <p>The charts and structural metrics translated from the physical board show a direct variance correlation between velocity scaling metrics and thermal profile generation over time.</p>
+        </section>
 
-   
-    
-  </div>
-</article>
+        <!-- RIGHT PANEL: QUIZ & SUMMARY -->
+        <section class="panel right-panel">
+            <h2>03. Evaluation Hub</h2>
+            <p>Verify your understanding of the flight mechanics and design parameters presented across this display.</p>
 
-          <!-- Canvas playground from before -->
-          <article class="card project">
-            <div class="chips"><span class="chip">Web • JS</span><span class="chip">Canvas</span></div>
-            <h3>Orbit Playground</h3>
-            <p>Little gravity sim with trails and an asteroid belt. HTML5 Canvas + requestAnimationFrame—no libs.</p>
-            <div class="actions">
-              <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
-              <a class="btn ghost" href="#" target="_blank" rel="noopener">Source</a>
+            <!-- Interactive Element: Quiz System -->
+            <div class="quiz-container">
+                <div id="question-text" class="question">Loading question...</div>
+                <div id="options-container" class="options-grid"></div>
+                
+                <div class="quiz-nav">
+                    <span id="score-display">Score: 0/0</span>
+                    <button id="next-btn" class="nav-btn" onclick="nextQuestion()" disabled>Next</button>
+                </div>
             </div>
-          </article>
-        </div>
-      </section>
 
-      <!-- SKILLS -->
-      <section id="skills" class="reveal">
-        <h2 class="mono" style="font-size:1.2rem; letter-spacing:.6px; margin:22px 0 10px">Skills</h2>
-        <div class="grid">
-          <div class="card skill"><h3>Languages</h3><p>JavaScript, Java, Python, HTML, CSS</p></div>
-          <div class="card skill"><h3>Tools</h3><p>Git & GitHub, VS Code, Node.js, Chrome DevTools</p></div>
-          <div class="card skill"><h3>Concepts</h3><p>OOP, DOM, REST basics, Responsive design, Accessibility</p></div>
-          <div class="card skill"><h3>Finance / Data</h3><p>Spreadsheets, basic financial modeling, data viz, ROI & compounding</p></div>
-        </div>
-      </section>
+            <h3 style="margin-top: 25px;">Conclusions</h3>
+            <p>The translation of aerospace data tracking mechanisms directly validates modern algorithmic predictions, forming a baseline architecture for subsequent iteration designs.</p>
+        </section>
 
-      <!-- TIMELINE (finance-focused) -->
-      <section id="timeline" class="reveal">
-        <h2 class="mono" style="font-size:1.2rem; letter-spacing:.6px; margin:22px 0 10px">Timeline</h2>
-        <div class="card timeline">
-          <div class="tl">
-            <div class="tli">
-              <h4>2025 — Finance projects & dashboards</h4>
-              <p class="meta">Portfolio tracker (ROI, drawdowns), budgeting automation, paper-trading backtests with simple JS charts.</p>
-            </div>
-            <div class="tli">
-              <h4>2024 — CS + Econ foundation</h4>
-              <p class="meta">AP CSA (Java OOP) + micro/macro coursework; started combining code with finance use-cases.</p>
-            </div>
-            <div class="tli">
-              <h4>2023 — First data tools</h4>
-              <p class="meta">Wrote small scripts to clean CSVs, chart trends, and track spending/investing habits.</p>
-            </div>
-            <div class="tli">
-              <h4>2021 — Started coding</h4>
-              <p class="meta">Began with HTML/CSS & Python, later added Java and JavaScript.</p>
-            </div>
-            <div class="tli">
-              <h4>Next up</h4>
-              <p class="meta">Learn more SQL & Python (Pandas), ship a live markets dashboard, and automate more finance workflows.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact" class="reveal">
-        <h2 class="mono" style="font-size:1.2rem; letter-spacing:.6px; margin:22px 0 10px">Contact</h2>
-        <div class="contact">
-          <div class="card">
-            <h3>Say hello</h3>
-            <p style="color:#9aa4b2">Prefer email? Click below—your mail app will open.</p>
-            <div class="cta">
-              <a class="btn primary" href="mailto:rohan@rohankosur.com">rohan@rohankosur.com</a>
-              <button class="btn ghost" id="copyEmail" data-email="rohan@rohankosur.com" type="button">Copy email</button>
-            </div>
-          </div>
-          <div class="card">
-            <h3>Socials</h3>
-            <div class="socials">
-              <a href="https://github.com/aaark69" target="_blank" rel="noopener" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.34-1.77-1.34-1.77-1.1-.76.08-.74.08-.74 1.22.08 1.87 1.25 1.87 1.25 1.08 1.86 2.84 1.32 3.53 1.01.11-.8.42-1.33.76-1.63-2.66-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.48 5.94.43.37.81 1.08.81 2.18v3.24c0 .32.21.69.82.58A12 12 0 0 0 12 .5Z"/></svg>
-                <span class="mono">GitHub</span>
-              </a>
-              <a href="https://instagram.com/rohankosur" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 1.17.07 1.97.24 2.67.52.73.28 1.34.66 1.93 1.25.59.59.97 1.2 1.25 1.93.28.7.45 1.5.52 2.67.07 1.2.07 1.6.07 4.8s0 3.6-.07 4.8c-.07 1.17-.24 1.97-.52 2.67-.28.73-.66 1.34-1.25 1.93-.59.59-1.2.97-1.93 1.25-.7.28-1.5.45-2.67.52-1.2.07-1.6.07-4.8.07s-3.6 0-4.8-.07c-1.17-.07-1.47-.2-1.82-.35-.46-.18-.8-.4-1.15-.75-.35-.35-.57-.69-.75-1.15-.15-.35-.3-.87-.35-1.82-.07-1.24-.07-1.61-.07-4.76s0-3.52-.07-4.76c-.05-.95-.2-1.47-.35-1.82-.18-.46-.4-.8-.75-1.15-.35-.35-.69-.57-1.15-.75-.35-.15-.87-.3-1.82-.35C15.52 4 15.15 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.35-1.95a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg>
-                <span class="mono">@rohankosur</span>
-              </a>
-              <a href="https://www.tiktok.com/@rohankosur" target="_blank" rel="noopener" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 2a6 6 0 0 0 .1 1.2c.5 2.7 2.4 4 4.9 4.2v3a8.5 8.5 0 0 1-4.7-1.4v6.7a6.7 6.7 0 1 1-6.7-6.7c.5 0 1 .1 1.5.2V12a3.7 3.7 0 1 0 2.2 3.4V2h2.7Z"/></svg>
-                <span class="mono">@rohankosur</span>
-              </a>
-              <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.44c0-1.3-.02-2.97-1.8-2.97s-2.08 1.4-2.08 2.88v5.53H9.44V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.48v6.26ZM5.34 7.43a2.06 2.06 0 1 1 0-4.11 2.06 2.06 0 0 1 0 4.11ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
-                <span class="mono">LinkedIn</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <span>© <span id="year"></span> Rohan</span>
-        <span class="mono">Built with plain HTML + CSS + JS</span>
-      </footer>
     </main>
-  </div>
 
-  <script>
-    const root=document.documentElement, toggle=document.getElementById('themeToggle');
-    const current=localStorage.getItem('theme'); if(current) root.setAttribute('data-theme', current);
-    toggle?.addEventListener('click',()=>{const now=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',now);localStorage.setItem('theme',now);});
-    const hamburger=document.getElementById('hamburger'), mobileMenu=document.getElementById('mobileMenu');
-    hamburger?.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
-    mobileMenu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
-    const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})},{threshold:.15});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    const copyBtn=document.getElementById('copyEmail');
-    copyBtn?.addEventListener('click',async(e)=>{const email=e.currentTarget.getAttribute('data-email');try{await navigator.clipboard.writeText(email);e.currentTarget.textContent='Copied!';setTimeout(()=>{e.currentTarget.textContent='Copy email';},1500);}catch{alert('Copy failed. Email: '+email);}});
-    document.getElementById('year').textContent=new Date().getFullYear();
-  </script>
+    <script>
+        // Data for Interactive Timeline
+        const stageData = {
+            t1: "<strong>T+0:00: Launch Initiation</strong><br>Primary propulsion thrusters achieved full nominal stabilization. Structural vibration readings remained within standard tolerances across all test telemetry points.",
+            t2: "<strong>T+1:15: Maximum Aerodynamic Pressure</strong><br>Aerodynamic drag forces peaked precisely at scheduled tracking limits. The automated hull stabilization system executed real-time attitude corrections.",
+            t3: "<strong>T+3:40: Orbital Insertion Secured</strong><br>Main engine cutoff achieved. System sensors confirmed safe payload deployment into intended stable vector coordinates."
+        };
+
+        function switchStage(stageKey, element) {
+            document.getElementById('timeline-box').innerHTML = stageData[stageKey];
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Data for Interactive Quiz
+        const quizData = [
+            {
+                question: "Which operational phase subjects the vehicle structure to its peak structural aerodynamic stress?",
+                options: ["Main Engine Cutoff", "Maximum Aerodynamic Pressure (Max Q)", "Orbital Insertion Phase", "Initial Ignition Sequence"],
+                correctIndex: 1
+            },
+            {
+                question: "What primary metric is minimized by optimizing the surface geometry coefficient?",
+                options: ["Payload Volume", "Total Structural Drag", "Propellant Burn Rate", "Telemetry Bandwidth Rate"],
+                correctIndex: 1
+            },
+            {
+                question: "What tool allows engineers to process real-time structural adjustments during flight?",
+                options: ["Automated Hull Stabilization System", "Static Tri-fold Schematics", "Payload Mass Balancers", "Post-Flight Data Logs"],
+                correctIndex: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('next-btn').disabled = true;
+            
+            const currentQuestion = quizData[currentQuestionIndex];
+            document.getElementById('question-text').innerText = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerText = option;
+                button.onclick = () => selectOption(index, button);
+                optionsContainer.appendChild(button);
+            });
+
+            updateScoreDisplay();
+        }
+
+        function selectOption(selectedIndex, selectedButton) {
+            if (answered) return;
+            answered = true;
+            
+            const currentQuestion = quizData[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            if (selectedIndex === currentQuestion.correctIndex) {
+                selectedButton.classList.add('correct');
+                score++;
+            } else {
+                selectedButton.classList.add('incorrect');
+                buttons[currentQuestion.correctIndex].classList.add('correct');
+            }
+            
+            updateScoreDisplay();
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function updateScoreDisplay() {
+            const totalAnswered = answered ? currentQuestionIndex + 1 : currentQuestionIndex;
+            document.getElementById('score-display').innerText = `Score: ${score}/${quizData.length}`;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                // Quiz Complete
+                document.getElementById('question-text').innerText = "Evaluation Complete!";
+                document.getElementById('options-container').innerHTML = `<p>You successfully processed the flight metrics parameters with a final efficiency rating of ${score} out of ${quizData.length} correct modules.</p>`;
+                document.getElementById('next-btn').style.display = 'none';
+            }
+        }
+
+        // Initialize quiz on page load
+        loadQuestion();
+    </script>
 </body>
 </html>
-
-
