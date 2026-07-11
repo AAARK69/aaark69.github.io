@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi N-Back Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Theme Configurations */
+        :root {
+            /* Midnight (Default) */
+            --bg-base: #0f172a;
+            --bg-panel: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --grid-base: #334155;
+            --grid-active: #38bdf8;
+        }
+
+        [data-theme="cyberpunk"] {
+            --bg-base: #000000;
+            --bg-panel: #111111;
+            --text-main: #fdf2f8;
+            --text-muted: #f472b6;
+            --accent: #fde047;
+            --accent-hover: #eab308;
+            --grid-base: #27272a;
+            --grid-active: #f472b6;
+        }
+
+        [data-theme="matrix"] {
+            --bg-base: #000000;
+            --bg-panel: #052e16;
+            --text-main: #4ade80;
+            --text-muted: #22c55e;
+            --accent: #22c55e;
+            --accent-hover: #16a34a;
+            --grid-base: #064e3b;
+            --grid-active: #4ade80;
+        }
+
+        [data-theme="light"] {
+            --bg-base: #f8fafc;
+            --bg-panel: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #000000;
+            --accent-hover: #333333;
+            --grid-base: #e2e8f0;
+            --grid-active: #0f172a;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .panel {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--grid-base);
+        }
+        .grid-cell {
+            background-color: var(--grid-base);
+            transition: all 0.15s ease-out;
+        }
+        .grid-cell.active-pos {
+            background-color: var(--grid-active);
+        }
+        .accent-text { color: var(--accent); }
+        .accent-bg { background-color: var(--accent); color: var(--bg-base); }
+        .accent-bg:hover { background-color: var(--accent-hover); }
+        .accent-border { border-color: var(--accent); }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            accent-color: var(--accent);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 font-sans" data-theme="midnight">
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Sidebar: Configuration & Analytics -->
+        <div class="lg:col-span-4 space-y-6">
+
+            <!-- Header -->
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight accent-text">Multi N-Back Pro</h1>
+                <p class="text-sm var(--text-muted) mt-1">Cognitive Training Interface</p>
+            </div>
+
+            <!-- Configuration Panel -->
+            <div class="panel p-6 rounded-xl shadow-lg">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Configuration</h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Theme</label>
+                        <select id="themeSelect" class="w-full bg-transparent border accent-border rounded-md p-2 text-sm outline-none">
+                            <option value="midnight" style="color: black;">Midnight</option>
+                            <option value="cyberpunk" style="color: black;">Cyberpunk</option>
+                            <option value="matrix" style="color: black;">Matrix</option>
+                            <option value="light" style="color: black;">Minimal Light</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Modality Mode</label>
+                        <select id="modeSelect" class="w-full bg-transparent border accent-border rounded-md p-2 text-sm outline-none">
+                            <option value="1" style="color: black;">Single N-Back (Position)</option>
+                            <option value="2" selected style="color: black;">Dual N-Back (+Audio)</option>
+                            <option value="3" style="color: black;">Triple N-Back (+Color)</option>
+                            <option value="4" style="color: black;">Quad N-Back (+Text)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm">
+                            <label class="font-medium">N-Back Level</label>
+                            <span id="nLevelVal" class="font-bold accent-text">2</span>
+                        </div>
+                        <input type="range" id="nLevel" min="1" max="9" value="2" class="w-full mt-1">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm">
+                            <label class="font-medium">Trial Duration</label>
+                            <span id="durationVal" class="font-bold accent-text">2.5s</span>
+                        </div>
+                        <input type="range" id="duration" min="1.5" max="4.0" step="0.1" value="2.5" class="w-full mt-1">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm">
+                            <label class="font-medium">Total Trials</label>
+                            <span id="trialsVal" class="font-bold accent-text">20</span>
+                        </div>
+                        <input type="range" id="trials" min="10" max="100" step="10" value="20" class="w-full mt-1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Dashboard -->
+            <div class="panel p-6 rounded-xl shadow-lg">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Analytics</h2>
+                <div id="scorecard" class="space-y-3">
+                    <p class="text-sm italic opacity-70">Start session to see stats...</p>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold">Overall Accuracy:</span>
+                        <span id="overallScore" class="text-2xl font-black accent-text">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Main Area: Game Grid -->
+        <div class="lg:col-span-8 flex flex-col items-center justify-center panel rounded-xl shadow-lg p-8 relative min-h-[600px]">
+
+            <div class="absolute top-6 right-8 font-mono font-bold text-lg accent-text" id="progressCounter">
+                TRIAL: 0 / 20
+            </div>
+
+            <!-- Game Grid -->
+            <div class="grid grid-cols-3 gap-3 w-72 h-72 mb-10 relative" id="gameGrid">
+                <!-- Squares 0-8 -->
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-0"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-1"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-2"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-3"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-4"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-5"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-6"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-7"></div>
+                <div class="grid-cell rounded-lg flex items-center justify-center text-3xl font-bold" id="cell-8"></div>
+
+                <!-- Text stimulus container, centered over the grid -->
+                <div id="textStimulusContainer" class="absolute inset-0 flex items-center justify-center pointer-events-none" style="z-index: 10;">
+                    <span id="textStimulus" class="text-5xl font-extrabold" style="color: var(--text-main); text-shadow: 0 0 10px rgba(0,0,0,0.8); display: none;"></span>
+                </div>
+            </div>
+
+            <!-- Input Controls -->
+            <div id="controls" class="grid grid-cols-2 gap-4 w-full max-w-md mb-8">
+                <button id="btn-pos" class="hidden panel border accent-border py-3 rounded-lg font-bold hover:bg-gray-800 transition active:scale-95" onclick="registerInput('position')">Position (A)</button>
+                <button id="btn-aud" class="hidden panel border accent-border py-3 rounded-lg font-bold hover:bg-gray-800 transition active:scale-95" onclick="registerInput('audio')">Audio (L)</button>
+                <button id="btn-col" class="hidden panel border accent-border py-3 rounded-lg font-bold hover:bg-gray-800 transition active:scale-95" onclick="registerInput('color')">Color (S)</button>
+                <button id="btn-txt" class="hidden panel border accent-border py-3 rounded-lg font-bold hover:bg-gray-800 transition active:scale-95" onclick="registerInput('text')">Text (D)</button>
+            </div>
+
+            <button id="startBtn" onclick="toggleGame()" class="accent-bg w-full max-w-md py-4 rounded-xl font-bold text-lg shadow-lg tracking-wide ">
+                START SESSION
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONSTANTS & STIMULI ---
+        const POSITIONS = [0, 1, 2, 3, 5, 6, 7, 8]; // Center (4) excluded for text
+        const LETTERS = ['C', 'H', 'K', 'L', 'Q', 'R', 'S', 'T'];
+        const COLORS = ['#ef4444', '#22c55e', '#3b82f6', '#eab308', '#a855f7']; // Red, Green, Blue, Yellow, Purple
+        const TEXTS = ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'OMEGA'];
+
+        // --- STATE MANAGEMENT ---
+        let state = {
+            isRunning: false,
+            mode: 2, // 1=Pos, 2=Pos+Aud, 3=Pos+Aud+Col, 4=Pos+Aud+Col+Txt
+            N: 2,
+            durationMs: 2500,
+            totalTrials: 20,
+            currentTrial: 0,
+            history: [],
+            targets: {}, // Tracks if current trial is a match
+            responses: {}, // Tracks user inputs for current trial
+            stats: {
+                position: { hits: 0, falseAlarms: 0, possible: 0 },
+                audio: { hits: 0, falseAlarms: 0, possible: 0 },
+                color: { hits: 0, falseAlarms: 0, possible: 0 },
+                text: { hits: 0, falseAlarms: 0, possible: 0 },
+            },
+            timers: []
+        };
+
+        // --- UI BINDINGS ---
+        const els = {
+            theme: document.getElementById('themeSelect'),
+            mode: document.getElementById('modeSelect'),
+            nLevel: document.getElementById('nLevel'),
+            duration: document.getElementById('duration'),
+            trials: document.getElementById('trials'),
+            startBtn: document.getElementById('startBtn'),
+            progress: document.getElementById('progressCounter'),
+            scorecard: document.getElementById('scorecard'),
+            overall: document.getElementById('overallScore'),
+            textStimulus: document.getElementById('textStimulus'),
+            buttons: {
+                position: document.getElementById('btn-pos'),
+                audio: document.getElementById('btn-aud'),
+                color: document.getElementById('btn-col'),
+                text: document.getElementById('btn-txt')
+            }
+        };
+
+        // --- EVENT LISTENERS ---
+        els.theme.addEventListener('change', (e) => document.body.setAttribute('data-theme', e.target.value));
+
+        els.nLevel.addEventListener('input', (e) => document.getElementById('nLevelVal').innerText = e.target.value);
+        els.duration.addEventListener('input', (e) => document.getElementById('durationVal').innerText = e.target.value + 's');
+        els.trials.addEventListener('input', (e) => document.getElementById('trialsVal').innerText = e.target.value);
+
+        els.mode.addEventListener('change', (e) => {
+            state.mode = parseInt(e.target.value);
+            updateControlButtons();
+        });
+
+        // Keyboard Shortcuts
+        window.addEventListener('keydown', (e) => {
+            if (!state.isRunning) return;
+            const key = e.key.toLowerCase();
+            if (key === 'a') registerInput('position');
+            if (key === 'l' && state.mode >= 2) registerInput('audio');
+            if (key === 's' && state.mode >= 3) registerInput('color');
+            if (key === 'd' && state.mode >= 4) registerInput('text');
+        });
+
+        function updateControlButtons() {
+            els.buttons.position.style.display = 'block';
+            els.buttons.audio.style.display = state.mode >= 2 ? 'block' : 'none';
+            els.buttons.color.style.display = state.mode >= 3 ? 'block' : 'none';
+            els.buttons.text.style.display = state.mode >= 4 ? 'block' : 'none';
+
+            // Adjust grid columns
+            const controls = document.getElementById('controls');
+            controls.className = `grid gap-4 w-full max-w-md mb-8 ${state.mode === 1 ? 'grid-cols-1' : state.mode === 2 ? 'grid-cols-2' : state.mode === 3 ? 'grid-cols-3' : 'grid-cols-2'}`;
+        }
+
+        // --- GAME LOGIC ---
+        function toggleGame() {
+            if (state.isRunning) endSession();
+            else startSession();
+        }
+
+        function startSession() {
+            state.N = parseInt(els.nLevel.value);
+            state.durationMs = parseFloat(els.duration.value) * 1000;
+            state.totalTrials = parseInt(els.trials.value);
+            state.currentTrial = 0;
+            state.history = [];
+            state.stats = {
+                position: { hits: 0, falseAlarms: 0, possible: 0 },
+                audio: { hits: 0, falseAlarms: 0, possible: 0 },
+                color: { hits: 0, falseAlarms: 0, possible: 0 },
+                text: { hits: 0, falseAlarms: 0, possible: 0 },
+            };
+            state.isRunning = true;
+
+            els.startBtn.innerText = "STOP SESSION";
+            els.startBtn.classList.replace('accent-bg', 'bg-red-600');
+            els.startBtn.classList.remove('');
+
+            updateScorecard();
+
+            // Wake up speech API (browser requirement)
+            if ('speechSynthesis' in window) {
+                let msg = new SpeechSynthesisUtterance('');
+                msg.volume = 0; window.speechSynthesis.speak(msg);
+            }
+
+            runTrial();
+        }
+
+        function endSession() {
+            state.isRunning = false;
+            state.timers.forEach(clearTimeout);
+            state.timers = [];
+
+            clearGrid();
+
+            els.startBtn.innerText = "START SESSION";
+            els.startBtn.classList.replace('bg-red-600', 'accent-bg');
+            els.startBtn.classList.add('');
+
+            setTimeout(() => alert("Session Complete! Check your analytics dashboard."), 100);
+        }
+
+        function generateStimulus(type, array, currentN) {
+            // ~30% chance to force a match if we have enough history
+            const isMatch = (state.history.length >= currentN) && (Math.random() < 0.3);
+            state.targets[type] = isMatch;
+
+            if (isMatch) {
+                return state.history[state.history.length - currentN][type];
+            } else {
+                let val = array[Math.floor(Math.random() * array.length)];
+                // Ensure it's not accidentally a match if we didn't want one
+                if (state.history.length >= currentN && val === state.history[state.history.length - currentN][type]) {
+                    let filtered = array.filter(item => item !== val);
+                    val = filtered[Math.floor(Math.random() * filtered.length)];
+                }
+                return val;
+            }
+        }
+
+        function runTrial() {
+            if (state.currentTrial >= state.totalTrials) {
+                evaluateResponses(); // Evaluate final trial
+                updateScorecard();
+                endSession();
+                return;
+            }
+
+            // Evaluate previous trial responses
+            if (state.currentTrial > 0) {
+                evaluateResponses();
+                updateScorecard();
+            }
+
+            state.currentTrial++;
+            els.progress.innerText = `TRIAL: ${state.currentTrial} / ${state.totalTrials}`;
+
+            // Reset trial state
+            state.targets = { position: false, audio: false, color: false, text: false };
+            state.responses = { position: false, audio: false, color: false, text: false };
+            clearGrid();
+
+            // Remove active states from buttons
+            Object.values(els.buttons).forEach(btn => btn.style.opacity = "1");
+
+            // Generate Data
+            const trialData = {
+                position: generateStimulus('position', POSITIONS, state.N)
+            };
+            if (state.mode >= 2) trialData.audio = generateStimulus('audio', LETTERS, state.N);
+            if (state.mode >= 3) trialData.color = generateStimulus('color', COLORS, state.N);
+            if (state.mode >= 4) trialData.text = generateStimulus('text', TEXTS, state.N);
+
+            state.history.push(trialData);
+
+            // Track possible targets
+            if (state.history.length > state.N) {
+                if (state.targets.position) state.stats.position.possible++;
+                if (state.mode >= 2 && state.targets.audio) state.stats.audio.possible++;
+                if (state.mode >= 3 && state.targets.color) state.stats.color.possible++;
+                if (state.mode >= 4 && state.targets.text) state.stats.text.possible++;
+            }
+
+            // Present Stimuli
+            const cell = document.getElementById(`cell-${trialData.position}`);
+
+            // Visual Stimulus duration 500ms
+            if (state.mode >= 3) {
+                cell.style.backgroundColor = trialData.color;
+            } else {
+                cell.classList.add('active-pos');
+            }
+
+            if (state.mode >= 4) {
+                els.textStimulus.innerText = trialData.text;
+                els.textStimulus.style.display = 'block';
+            }
+
+            if (state.mode >= 2) {
+                window.speechSynthesis.cancel();
+                let utterance = new SpeechSynthesisUtterance(trialData.audio);
+                utterance.rate = 1.2;
+                window.speechSynthesis.speak(utterance);
+            }
+
+            // Clear visual stimulus after 500ms
+            state.timers.push(setTimeout(() => {
+                clearGrid();
+            }, 500));
+
+            // Schedule next trial
+            state.timers.push(setTimeout(runTrial, state.durationMs));
+        }
+
+        function registerInput(modality) {
+            if (!state.isRunning) return;
+            state.responses[modality] = true;
+            els.buttons[modality].style.opacity = "0.5"; // Visual feedback
+        }
+
+        function evaluateResponses() {
+            // Only evaluate if we are past the Nth trial
+            if (state.currentTrial <= state.N) return;
+
+            const evaluate = (mod) => {
+                const isTarget = state.targets[mod];
+                const responded = state.responses[mod];
+
+                if (isTarget && responded) state.stats[mod].hits++;
+                if (!isTarget && responded) state.stats[mod].falseAlarms++;
+            };
+
+            evaluate('position');
+            if (state.mode >= 2) evaluate('audio');
+            if (state.mode >= 3) evaluate('color');
+            if (state.mode >= 4) evaluate('text');
+        }
+
+        function updateScorecard() {
+            const activeMods = ['position'];
+            if (state.mode >= 2) activeMods.push('audio');
+            if (state.mode >= 3) activeMods.push('color');
+            if (state.mode >= 4) activeMods.push('text');
+
+            let html = '';
+            let totalAcc = 0;
+
+            activeMods.forEach(mod => {
+                const s = state.stats[mod];
+                // Formula: Accuracy = (Hits + Correct Rejections) / Total Evaluated Trials
+                const evaluatedTrials = Math.max(0, state.currentTrial - state.N);
+                const correctRejections = evaluatedTrials - s.possible - s.falseAlarms;
+
+                let acc = 100;
+                if (evaluatedTrials > 0) {
+                    acc = Math.max(0, Math.round(((s.hits + correctRejections) / evaluatedTrials) * 100));
+                }
+
+                totalAcc += acc;
+
+                html += `
+                <div class="bg-black bg-opacity-20 rounded p-3 mb-2">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="uppercase text-xs font-bold accent-text">${mod}</span>
+                        <span class="font-bold">${acc}%</span>
+                    </div>
+                    <div class="flex gap-4 text-xs">
+                        <span class="text-green-400">Hits: ${s.hits}/${s.possible}</span>
+                        <span class="text-red-400">FA: ${s.falseAlarms}</span>
+                    </div>
+                </div>`;
+            });
+
+            els.scorecard.innerHTML = html || '<p class="text-sm italic opacity-70">Calculating...</p>';
+            els.overall.innerText = Math.round(totalAcc / activeMods.length) + '%';
+        }
+
+        function clearGrid() {
+            for (let i = 0; i < 9; i++) {
+                const cell = document.getElementById(`cell-${i}`);
+                cell.className = 'grid-cell rounded-lg flex items-center justify-center text-xl font-bold';
+                cell.style.backgroundColor = '';
+                cell.innerText = '';
+            }
+            els.textStimulus.style.display = 'none';
+        }
+
+        // Init
+        updateControlButtons();
+    </script>
+</body>
+</html>
